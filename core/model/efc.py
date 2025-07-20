@@ -415,9 +415,17 @@ class EFC(Finetune):
         return probabilities
 
     def update_task_idt(self, dataloader):
-        print(dataloader.dataset.get_class_names())
-        _,labels = enumerate(dataloader)
-        self.task_dict[self.task_id] = torch.unique(labels).tolist()
+        all_labels = []
+
+        for b, batch in enumerate(dataloader):
+            labels = batch['label']
+            if isinstance(labels, torch.Tensor):
+                labels = labels.cpu().numpy()
+
+            all_labels.extend(labels)
+
+        unique_labels = list(set(all_labels))
+        self.task_dict[self.task_id] = unique_labels
 
     def observe(self, data):
         x, y = data['image'], data['label']
