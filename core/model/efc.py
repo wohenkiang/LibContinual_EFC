@@ -512,9 +512,6 @@ class EFC(Finetune):
             # Auxiliary classifier used for self rotation
             self.auxiliary_classifier.to(self.device)
             self.auxiliary_classifier.train()
-        else:
-            # Self rotation is not used after the first task
-            self.auxiliary_classifier = None
 
             # Freeze old model
         self.old_model = deepcopy(self.model)
