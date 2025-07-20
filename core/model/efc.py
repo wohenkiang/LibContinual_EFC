@@ -282,7 +282,7 @@ class BaseModel(nn.Module):
     def forward(self, x):
         results = {}
         features = self.backbone(x)
-
+        print(features)
         for id, head in enumerate(self.heads):
             results[id] = head(features)
 
