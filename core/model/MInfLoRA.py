@@ -80,7 +80,7 @@ def select_probe_greedy_span_unified_normalized(cur_matrixs_list, energy_thresho
 
 
 
-    #total_energy = projected_vectors.norm(dim=-1).pow(2).sum().item()
+    # total_energy = projected_vectors.norm(dim=-1).pow(2).sum().item()
     current_energy = 0.0
 
     while current_energy / total_energy < energy_threshold:

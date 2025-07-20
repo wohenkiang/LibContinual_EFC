@@ -161,8 +161,10 @@ class Trainer(object):
                 torch.optim, "optimizer", config, params=model.get_parameters(config)
             )
 
+        if self.task_idx == 0 and 'init_lr_scheduler' in config.keys():
+            scheduler = get_instance(torch.optim.lr_scheduler, "init_lr_scheduler", config, optimizer=optimizer)
         # Check if the learning rate scheduler specified in the configuration is "CosineSchedule"
-        if config['lr_scheduler']['name'] == "CosineSchedule":
+        elif config['lr_scheduler']['name'] == "CosineSchedule":
             scheduler = CosineSchedule(optimizer, K=config['lr_scheduler']['kwargs']['K'])
         elif config['lr_scheduler']['name'] == "PatienceSchedule":
             scheduler = PatienceSchedule(optimizer, patience = config['lr_scheduler']['kwargs']['patience'], factor = config['lr_scheduler']['kwargs']['factor'])

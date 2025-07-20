@@ -1,0 +1,64 @@
+image_size: 32
+
+# data
+init_cls_num: 10
+inc_cls_num: 10
+task_num: 10
+
+epoch: 100
+n_gpu: 2
+val_per_epoch: 50
+
+batch_size: 64
+seed: 0
+
+data_root: LibContinual/data/cifar100
+
+init_optimizer:
+  name: Adam
+  kwargs:
+    lr: 0.001
+    weight_decay: 0.0002
+
+init_lr_scheduler:
+  name: MultiStepLR
+  kwargs:
+    gamma: 0.1
+    milestones: [45, 90]
+
+optimizer:
+  name: Adam
+  kwargs:
+    lr: 0.0001
+    weight_decay: 0.0002
+
+lr_scheduler:
+  name: MultiStepLR
+  kwargs:
+    gamma: 0.1
+    milestones: [1000,2000] #实际上并不使用lr_scheduler
+
+backbone:
+  name: resnet18
+  kwargs:
+    num_classes: 100
+    args:
+      dataset: cifar100
+
+buffer:
+  name: PRACEBuffer
+  kwargs:
+    batch_size: 64
+
+classifier:
+  name: EFC
+  kwargs:
+    batch_size: 64
+    efc_lamb: 10.0
+    efc_damping: 0.1
+    efc_protoupdate: 0.2
+    efc_protobatchsize: 64
+    device: cuda
+    inc_cls_num: 10
+    init_cls_num: 10
+    dataset: cifar100
