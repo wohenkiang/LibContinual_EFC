@@ -414,8 +414,9 @@ class EFC(Finetune):
         probabilities = torch.nn.Softmax(dim=1)(outputs[head_id])
         return probabilities
 
-    def update_task_idt(self, new_task_cls_list):
-        self.task_dict[self.task_id] = new_task_cls_list
+    def update_task_idt(self, dataloader):
+        _,labels = enumerate(dataloader)
+        self.task_dict[self.task_id] = torch.unique(labels).tolist()
 
     def observe(self, data):
         x, y = data['image'], data['label']
