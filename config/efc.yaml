@@ -7,6 +7,7 @@ includes:
 image_size: 32
 
 save_path: ./
+device_ids: 0
 
 init_cls_num: 10
 inc_cls_num: 10
