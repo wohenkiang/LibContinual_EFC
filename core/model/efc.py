@@ -265,7 +265,7 @@ def get_old_new_features(model, old_model, trn_loader, device):
 
     return new_features, old_features
 
-from finetune import Finetune
+from .finetune import Finetune
 
 class BaseModel(nn.Module):
     def __init__(self, backbone, feat_dim):
