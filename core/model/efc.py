@@ -415,7 +415,7 @@ class EFC(Finetune):
         return probabilities
 
     def update_task_idt(self, dataloader):
-        dataloader.dataset.get_class_names()
+        print(dataloader.dataset.get_class_names())
         _,labels = enumerate(dataloader)
         self.task_dict[self.task_id] = torch.unique(labels).tolist()
 
