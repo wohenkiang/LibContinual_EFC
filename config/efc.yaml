@@ -67,7 +67,7 @@ classifier:
     efc_damping: 0.1
     efc_protoupdate: 0.2
     efc_protobatchsize: 64
-    device: auto
+    device: cuda
     inc_cls_num: 10
     init_cls_num: 10
     dataset: cifar100
