@@ -508,7 +508,7 @@ class EFC(Finetune):
         self.update_task_idt(torch.unique(train_loader.dataset['label']))
         self.proto_generator.update_task_dict(self.task_dict)
 
-        if self.task_id == 0 and self.rotation:
+        if self.task_id == 0 :
             # Auxiliary classifier used for self rotation
             self.auxiliary_classifier = nn.Linear(512, len(self.task_dict[self.task_id]) * 3)
             self.auxiliary_classifier.to(self.device)
