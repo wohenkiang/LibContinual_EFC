@@ -21,6 +21,7 @@ batch_size: 64
 seed: 0
 
 data_root: data/cifar100
+num_workers: 4
 
 init_optimizer:
   name: Adam
