@@ -510,7 +510,6 @@ class EFC(Finetune):
 
         if self.task_id == 0 :
             # Auxiliary classifier used for self rotation
-            self.auxiliary_classifier = nn.Linear(512, len(self.task_dict[self.task_id]) * 3)
             self.auxiliary_classifier.to(self.device)
             self.auxiliary_classifier.train()
         else:
