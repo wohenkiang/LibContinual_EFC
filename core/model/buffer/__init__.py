@@ -3,3 +3,4 @@ from .update import *
 from .linearherdingbuffer import *
 from .onlinebuffer import *
 from .erbuffer import *
+from .efcbuffer import *
