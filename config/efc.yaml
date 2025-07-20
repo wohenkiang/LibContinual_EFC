@@ -20,7 +20,7 @@ val_per_epoch: 50
 batch_size: 64
 seed: 0
 
-data_root: LibContinual/data/cifar100
+data_root: data/cifar100
 
 init_optimizer:
   name: Adam
