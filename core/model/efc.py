@@ -506,7 +506,7 @@ class EFC(Finetune):
 
     def before_task(self, task_idx, buffer, train_loader, test_loaders):
         self.task_id = task_idx
-        self.update_task_idt(torch.unique(train_loader.dataset['label']))
+        self.update_task_idt(train_loader.get_loader(self.task_id))
         self.proto_generator.update_task_dict(self.task_dict)
 
         if self.task_id == 0 :
