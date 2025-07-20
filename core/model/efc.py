@@ -348,7 +348,7 @@ class EFC(Finetune):
             self.image_size = 64
 
         # SELF-ROTATION classifier
-        self.auxiliary_classifier = None
+        self.auxiliary_classifier = nn.Linear(512, self.init_cls_num* 3)
 
     def efm_loss(self, features, features_old):
         features = features.unsqueeze(1)
