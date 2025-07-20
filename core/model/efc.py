@@ -347,8 +347,6 @@ class EFC(Finetune):
         elif self.dataset == "tiny-imagenet":
             self.image_size = 64
 
-        self.seed = kwargs['seed']
-
         # SELF-ROTATION classifier
         self.auxiliary_classifier = None
 
