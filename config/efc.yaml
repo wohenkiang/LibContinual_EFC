@@ -8,7 +8,7 @@ image_size: 32
 
 save_path: ./
 device_ids: 0
-testing_times: 1
+testing_times: 3
 
 init_cls_num: 10
 inc_cls_num: 10
