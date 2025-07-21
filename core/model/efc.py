@@ -478,7 +478,7 @@ class EFC(Finetune):
         y = y.to(self.device)
 
         outputs, features = self.model(x)
-        tag_probs = self.tag_probabilities(outputs[:x.shape])
+        tag_probs = self.tag_probabilities(outputs)
         pred = torch.argmax(tag_probs, dim=1)
 
         acc = torch.sum(pred == y).item()
