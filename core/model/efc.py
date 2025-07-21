@@ -588,7 +588,7 @@ class EFC(Finetune):
 
         # save matrix after each task for analysis
 
-        self.proto_generator.compute(self.model, deepcopy(train_loader.dataset), task_idx)
+        self.proto_generator.compute(self.model, deepcopy(train_loader), task_idx)
 
     def compute_drift(self, new_features, old_features, device):
         DY = (new_features - old_features).to(device)
