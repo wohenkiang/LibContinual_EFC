@@ -473,6 +473,10 @@ class EFC(Finetune):
                                                                     proto_to_samples=pb)
 
         loss = cls_loss + efc_loss + loss_protoAug
+        if self.task_id > 0:
+            self.buffer.add_data(current_samples=x[:current_batch_size],
+                                 current_targets=y[:current_batch_size])
+
         tag_probs = self.tag_probabilities(outputs)
         pred = torch.argmax(tag_probs, dim=1)
         acc = torch.sum(pred == y).item()
