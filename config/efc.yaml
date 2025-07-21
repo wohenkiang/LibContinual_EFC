@@ -15,7 +15,7 @@ task_num: 10
 
 epoch: 100
 n_gpu: 1
-val_per_epoch: 50
+val_per_epoch: 1
 
 batch_size: 64
 seed: 0
