@@ -249,8 +249,8 @@ def get_old_new_features(model, old_model, trn_loader, device):
     labels_list = []
     old_outputs = []
     with torch.no_grad():
-        for images, labels in trn_loader:
-            print(labels)
+        for  batch in trn_loader:
+            images, labels = batch['image'], batch['label']
             images = images.to(device)
             labels = labels.type(dtype=torch.int64).to(device)
             _, features = model(images)
