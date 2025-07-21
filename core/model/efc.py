@@ -556,7 +556,7 @@ class EFC(Finetune):
         with torch.no_grad():
             if task_idx > 0 and self.sigma_proto_update != -1:
                 new_features, old_features = get_old_new_features(self.model, self.old_model,
-                                                                  train_loader.dataset, self.device)
+                                                                  train_loader, self.device)
 
                 drift = self.compute_drift(new_features, old_features, device="cpu")
                 drift = drift.cpu()
