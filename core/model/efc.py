@@ -432,7 +432,8 @@ class EFC(Finetune):
 
         unique_labels = list(set(all_labels))
         self.task_dict[self.task_id] = unique_labels
-
+        print(self.task_dict)
+        
     def observe(self, data):
         if self.task_id == 0:
             self.model.train()
