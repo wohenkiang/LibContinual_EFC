@@ -11,7 +11,7 @@ class PRACEBuffer:
         self.previous_batch_labels = None
         self.batch_size = batch_size
         self.total_classes = 0
-        self.batch_size = 0
+        self.buffer_size = 0
 
     def add_data(self, current_samples, current_targets):
         self.previous_batch_labels = current_targets
