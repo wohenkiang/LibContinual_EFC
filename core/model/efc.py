@@ -427,6 +427,12 @@ class EFC(Finetune):
         self.task_dict[self.task_id] = unique_labels
 
     def observe(self, data):
+        if self.task_id == 0:
+            self.model.train()
+        else:
+            # we freeze batch norm after the first task.
+            self.model.eval()
+        
         x, y = data['image'], data['label']
         x = x.to(self.device)
         y = y.to(self.device)
