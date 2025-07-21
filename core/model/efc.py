@@ -440,7 +440,8 @@ class EFC(Finetune):
         else:
             # we freeze batch norm after the first task.
             self.model.eval()
-
+        if  self.task_id == 0 :
+            self.auxiliary_classifier.train()
         x, y = data['image'], data['label']
         x = x.to(self.device)
         y = y.to(self.device)
