@@ -68,8 +68,6 @@ class EmpiricalFeatureMatrix:
 
         self.create(model)
 
-        # _,trn_loader=enumerate(trn_loader)
-        print(trn_loader)
         with torch.no_grad():
             for batch in itertools.islice(trn_loader, n_samples_batches):
                 images = batch["image"]
