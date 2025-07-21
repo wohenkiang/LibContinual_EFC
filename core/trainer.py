@@ -326,7 +326,9 @@ class Trainer(object):
                 #TODO: 记得删掉
                 time1=time()
                 train_meter = self._train(epoch_idx, dataloader)
-
+                time2=time()
+                print(f"Epoch {epoch_idx} train time {time2-time1}")
+                #TODO:截止这里
                 acc1 = torch.tensor(train_meter.avg("acc1"), device=self.device)
                 loss = torch.tensor(train_meter.avg("loss"), device=self.device)
                 if self.distribute:
