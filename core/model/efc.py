@@ -571,7 +571,7 @@ class EFC(Finetune):
                 self.proto_generator.running_proto = deepcopy(self.proto_generator.prototype)
 
             efm_matrix = EmpiricalFeatureMatrix(self.device)
-            efm_matrix.compute(self.model, deepcopy(train_loader.dataset), task_idx)
+            efm_matrix.compute(self.model, deepcopy(train_loader), task_idx)
             self.previous_efm = efm_matrix.get()
             R, L, V = torch.linalg.svd(self.previous_efm)
             matrix_rank = torch.linalg.matrix_rank(self.previous_efm)
