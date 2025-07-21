@@ -8,7 +8,6 @@ image_size: 32
 
 save_path: ./
 device_ids: 0
-deterministic: False
 testing_times: 1
 
 init_cls_num: 10
