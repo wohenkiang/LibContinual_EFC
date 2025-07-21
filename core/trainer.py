@@ -323,6 +323,8 @@ class Trainer(object):
             for epoch_idx in range(self.init_epoch if task_idx == 0 else self.inc_epoch):
                 if self.rank == 0:
                     print("================Train on train set================")
+                #TODO: 记得删掉
+                time1=time()
                 train_meter = self._train(epoch_idx, dataloader)
 
                 acc1 = torch.tensor(train_meter.avg("acc1"), device=self.device)
