@@ -68,6 +68,8 @@ class EmpiricalFeatureMatrix:
 
         self.create(model)
 
+        _,trn_loader=trn_loader
+        print(trn_loader)
         with torch.no_grad():
             for images, targets in itertools.islice(trn_loader, n_samples_batches):
                 gap_out = model.backbone(images.to(self.device))['features']
