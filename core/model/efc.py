@@ -160,7 +160,7 @@ class ProtoGenerator:
         with torch.no_grad():
             for batch in loader:
                 images = batch["image"]
-                targets = batch["label"]
+                labels = batch["label"]
                 images = images.to(self.device)
                 labels = labels.type(dtype=torch.int64).to(self.device)
                 _, features = model(images)
