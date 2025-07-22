@@ -402,7 +402,7 @@ class EFC(Finetune):
 
         unique_labels = list(set(all_labels))
         self.task_dict[self.task_id] = unique_labels
-        print(self.task_dict)
+        print(self.task_dict,type(unique_labels[0]))
         
     def observe(self, data):
         if self.task_id == 0:
