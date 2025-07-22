@@ -87,21 +87,12 @@ class EmpiricalFeatureMatrix:
                 # der_log_softmax =  einops.repeat(identity, 'n m -> b n m', b=gap_out.shape[0]) - einops.repeat(torch.exp(log_p), 'n p -> n a p', a=out.shape[1])
 
                 # TODO
-                # PyTorch 实现
-                # 第一部分：将 identity 在第一个维度重复 b 次
                 part1 = identity.unsqueeze(0).expand(gap_out.shape[0], identity.shape[0], identity.shape[1])
-                # 第二部分：将 torch.exp(log_p) 在第二个维度重复 a 次
                 part2 = torch.exp(log_p).unsqueeze(1).expand(log_p.shape[0], out.shape[1], log_p.shape[1])
-                # 最终结果
                 der_log_softmax = part1 - part2
 
                 weight_matrix = torch.cat([h[0].weight for h in model.heads], dim=0)
 
-                # closed formula jacobian matrix
-                # 原始 einops 实现（注释掉）
-                # jac  = torch.bmm(der_log_softmax, einops.repeat(weight_matrix, 'n m -> b n m', b=gap_out.shape[0]))
-
-                # PyTorch 实现
                 weight_matrix_expanded = weight_matrix.unsqueeze(0).expand(gap_out.shape[0], weight_matrix.shape[0],
                                                                            weight_matrix.shape[1])
                 jac = torch.bmm(der_log_softmax, weight_matrix_expanded)

@@ -19,7 +19,6 @@ n_gpu: 1
 val_per_epoch: 10
 
 batch_size: 64
-seed: 0
 warmup: 0
 data_root: data/cifar100
 num_workers: 4
