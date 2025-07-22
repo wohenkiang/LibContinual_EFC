@@ -61,7 +61,8 @@ class EmpiricalFeatureMatrix:
         # Compute empirical feature matrix for specified number of samples -- rounded to the batch size
 
         n_samples_batches = len(trn_loader.dataset) // trn_loader.batch_size
-
+        print("EFM len(trn_loader.dataset) ;trn_loader.batch_size; n_samples_batches")
+        print(len(trn_loader.dataset),trn_loader.batch_size,n_samples_batches)
         model.eval()
         # ensure that gradients are zero
         model.zero_grad()
