@@ -140,6 +140,7 @@ class ProtoGenerator:
         features_list = torch.cat(features_list)
         print(label_list)
         for label in self.task_dict[current_task]:
+            print(type(label))
             mask = (label_list == label)
             feature_classwise = features_list[mask]
             self.class_stats[label] = feature_classwise.shape[0]
