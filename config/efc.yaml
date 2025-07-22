@@ -20,7 +20,7 @@ val_per_epoch: 100
 
 batch_size: 64
 seed: 0
-
+warmup: 0
 data_root: data/cifar100
 num_workers: 4
 
