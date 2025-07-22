@@ -71,6 +71,7 @@ class EmpiricalFeatureMatrix:
 
         with torch.no_grad():
             for batch in itertools.islice(trn_loader, n_samples_batches):
+                print(batch.shape)
                 images = batch["image"]
                 print(images.shape)
                 label = batch["label"]
