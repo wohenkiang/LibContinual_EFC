@@ -143,6 +143,7 @@ class ProtoGenerator:
             print(type(label))
             mask = (label_list == label)
             feature_classwise = features_list[mask]
+            print(feature_classwise.shape)
             self.class_stats[label] = feature_classwise.shape[0]
 
             proto = feature_classwise.mean(dim=0)
