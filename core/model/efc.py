@@ -576,6 +576,7 @@ class EFC(Finetune):
             self.previous_efm = efm_matrix.get()
             R, L, V = torch.linalg.svd(self.previous_efm)
             matrix_rank = torch.linalg.matrix_rank(self.previous_efm)
+            print("Computed Matrix Rank {}".format(matrix_rank))
             self.R = R
             self.L = L
             self.matrix_rank = matrix_rank
