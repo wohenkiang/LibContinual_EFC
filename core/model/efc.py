@@ -8,30 +8,6 @@ import os
 
 # import einops  # 注释掉，不再需要
 
-def jacobian_in_batch(y, x):
-    '''
-    Compute the Jacobian matrix in batch form.
-    Return (B, D_y, D_x)
-    '''
-
-    batch = y.shape[0]
-    single_y_size = np.prod(y.shape[1:])
-    y = y.view(batch, -1)
-    vector = torch.ones(batch).to(y)
-
-    # Compute Jacobian row by row.
-    # dy_i / dx -> dy / dx
-    # (B, D) -> (B, 1, D) -> (B, D, D)
-    jac = [torch.autograd.grad(y[:, i], x,
-                               grad_outputs=vector,
-                               retain_graph=True,
-                               create_graph=True)[0].view(batch, -1)
-           for i in range(single_y_size)]
-    jac = torch.stack(jac, dim=1)
-
-    return jac
-
-
 def isPSD(A, tol=1e-7):
     import numpy as np
     A = A.cpu().numpy()
