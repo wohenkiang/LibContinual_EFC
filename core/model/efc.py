@@ -504,7 +504,7 @@ class EFC(Finetune):
         return pred, acc / x.size(0)
 
     def forward(self, x):
-        pass
+        raise ValueError("这是一个值错误")
         if self.task_id == 0:
             images_rot, _ = compute_rotations(x, self.image_size, self.task_dict, None, self.task_id)
             x = torch.cat([x, images_rot], dim=0)
