@@ -389,6 +389,10 @@ class Trainer(object):
                         random_update(self.train_loader.get_loader(task_idx).dataset, self.buffer)
                     elif self.buffer.strategy == 'balance_random':
                         balance_random_update(self.train_loader.get_loader(task_idx).dataset, self.buffer)
+                
+                # Synchronize buffer across all processes in distributed training
+                if self.distribute:
+                    dist.barrier()
 
             # Stage 2 Training : BIC (Stage 2 start after buffer being updated)
             if self.config["classifier"]["name"] == "bic" and task_idx > 0:
