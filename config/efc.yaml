@@ -71,5 +71,5 @@ classifier:
     inc_cls_num: 20
     init_cls_num: 20
     dataset: tiny-imagenet
-    num_class: 10
+    num_class: 200
     feat_dim: 512
