@@ -130,7 +130,7 @@ class ResNet(nn.Module):
         self.base_width = width_per_group
         
         assert args is not None, "you should pass args to resnet"
-        if 'cifar' in args["dataset"]:
+        if 'cifar' in args["dataset"] or 'tiny-imagenet' in args["dataset"]:
             self.conv1 = nn.Sequential(nn.Conv2d(3, self.inplanes, kernel_size=3, stride=1, padding=1, bias=False),
                                        nn.BatchNorm2d(self.inplanes), nn.ReLU(inplace=True))
         elif 'imagenet' in args["dataset"]:
