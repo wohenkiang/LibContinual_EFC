@@ -497,6 +497,30 @@ class Trainer(object):
                 print(f" * Backward Transfer: {bwt:.2f} (Best: {best_bwt:.2f})")
                 print(f" * Per-Task Acc: {acc_table[task_idx][:task_idx + 1]}")
 
+        # Synchronize final results across all processes in distributed training
+        if self.distribute:
+            # Synchronize batch_last_acc_list and best_batch_last_acc_list
+            batch_acc_list_tensor = torch.tensor(batch_last_acc_list, device=self.device)
+            best_batch_acc_list_tensor = torch.tensor(best_batch_last_acc_list, device=self.device)
+            dist.all_reduce(batch_acc_list_tensor, op=dist.ReduceOp.SUM)
+            dist.all_reduce(best_batch_acc_list_tensor, op=dist.ReduceOp.SUM)
+            batch_last_acc_list = batch_acc_list_tensor.cpu().numpy() / self.config['n_gpu']
+            best_batch_last_acc_list = best_batch_acc_list_tensor.cpu().numpy() / self.config['n_gpu']
+            
+            # Synchronize acc_table
+            acc_table_tensor = torch.tensor(acc_table, device=self.device)
+            dist.all_reduce(acc_table_tensor, op=dist.ReduceOp.SUM)
+            acc_table = acc_table_tensor.cpu().numpy() / self.config['n_gpu']
+            
+            # Synchronize frgt_list and bwt_list
+            if len(frgt_list) > 0:
+                frgt_list_tensor = torch.tensor(frgt_list, device=self.device)
+                bwt_list_tensor = torch.tensor(bwt_list, device=self.device)
+                dist.all_reduce(frgt_list_tensor, op=dist.ReduceOp.SUM)
+                dist.all_reduce(bwt_list_tensor, op=dist.ReduceOp.SUM)
+                frgt_list = frgt_list_tensor.cpu().numpy() / self.config['n_gpu']
+                bwt_list = bwt_list_tensor.cpu().numpy() / self.config['n_gpu']
+
         batch_ovr_avg_acc = np.mean(batch_last_acc_list) #batch_ovr_avg_acc = np.mean(avg_acc_list)
         best_batch_ovr_avg_acc = np.mean(best_batch_last_acc_list) # best_batch_ovr_avg_acc = np.mean(best_avg_acc_list)
          
