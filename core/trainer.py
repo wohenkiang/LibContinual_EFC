@@ -578,6 +578,20 @@ class Trainer(object):
             meter.update("acc1", 100 * acc)
             meter.update("loss", loss.item())
 
+        # Synchronize meter across all processes in distributed training
+        if self.distribute:
+            acc1 = torch.tensor(meter.avg("acc1"), device=self.device)
+            loss = torch.tensor(meter.avg("loss"), device=self.device)
+            dist.all_reduce(acc1, op=dist.ReduceOp.SUM)
+            dist.all_reduce(loss, op=dist.ReduceOp.SUM)
+            acc1 = acc1 / self.config['n_gpu']
+            loss = loss / self.config['n_gpu']
+            
+            # Update meter with synchronized values
+            meter.reset()
+            meter.update("acc1", acc1.item())
+            meter.update("loss", loss.item())
+
         return meter
 
     def _train(self, epoch_idx, dataloader):
