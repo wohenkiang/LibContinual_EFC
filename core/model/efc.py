@@ -422,6 +422,7 @@ class EFC(Finetune):
 
         if self.task_id > 0:
             # Forward old model
+            self.old_model.eval()
             _, old_features = self.old_model(x)
 
             if self.buffer.previous_batch_samples is not None:
