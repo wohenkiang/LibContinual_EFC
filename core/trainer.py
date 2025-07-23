@@ -42,7 +42,7 @@ class Trainer(object):
         self.distribute = self.config['n_gpu'] > 1
         if self.distribute:
             dist.init_process_group(backend='nccl', init_method='tcp://127.0.0.1:23456',
-                                    world_size=self.config['n_gpu'], rank=rank)
+                                    world_size=self.config['n_gpu'], rank=self.rank)
         self.model = self._init_model(config) 
         (
             self.train_loader,
