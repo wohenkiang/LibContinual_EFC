@@ -224,7 +224,7 @@ class Trainer(object):
         test_loaders = get_dataloader(config, "test", cls_map=train_loaders.cls_map)
         if self.distribute:
             dist.init_process_group(backend='nccl', init_method='tcp://127.0.0.1:23456',
-                                    world_size=self.config['n_gpu'], rank=rank)
+                                    world_size=self.config['n_gpu'], rank=self.rank)
         # Add DistributedSampler to each dataloader
         if self.distribute:
             for loaders in [train_loaders, test_loaders]:
