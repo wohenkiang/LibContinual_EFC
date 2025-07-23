@@ -15,7 +15,7 @@ inc_cls_num: 10
 task_num: 10
 
 epoch: 100
-n_gpu: 2
+n_gpu: 1
 val_per_epoch: 10
 
 batch_size: 64
