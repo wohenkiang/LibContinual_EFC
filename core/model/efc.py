@@ -514,7 +514,6 @@ class EFC(Finetune):
         self.old_model = deepcopy(self.model)
         self.old_model.freeze_all()
         self.old_model.to(self.device)
-        self.old_model.eval()
 
         # Add classification head
         self.model.add_classification_head(len(self.task_dict[self.task_id]))
