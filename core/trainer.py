@@ -679,7 +679,13 @@ class Trainer(object):
                 count_all += count_task
 
                 if self.distribute:
-                    pass
+                    # Aggregate correct_task and count_task across all processes
+                    correct_task_tensor = torch.tensor(correct_task, device=self.device)
+                    count_task_tensor = torch.tensor(count_task, device=self.device)
+                    dist.all_reduce(correct_task_tensor, op=dist.ReduceOp.SUM)
+                    dist.all_reduce(count_task_tensor, op=dist.ReduceOp.SUM)
+                    correct_task = correct_task_tensor.item()
+                    count_task = count_task_tensor.item()
 
                 per_task_acc.append(round(correct_task * 100 / count_task, 2))
 
