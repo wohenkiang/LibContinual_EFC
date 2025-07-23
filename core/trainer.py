@@ -465,6 +465,21 @@ class Trainer(object):
             task_last_acc_list[task_idx] /= testing_times
             acc_table[task_idx] /= testing_times
 
+            # Synchronize results across all processes in distributed training
+            if self.distribute:
+                # Synchronize batch_last_acc_list and task_last_acc_list
+                batch_acc_tensor = torch.tensor(batch_last_acc_list[task_idx], device=self.device)
+                task_acc_tensor = torch.tensor(task_last_acc_list[task_idx], device=self.device)
+                dist.all_reduce(batch_acc_tensor, op=dist.ReduceOp.SUM)
+                dist.all_reduce(task_acc_tensor, op=dist.ReduceOp.SUM)
+                batch_last_acc_list[task_idx] = batch_acc_tensor.item() / self.config['n_gpu']
+                task_last_acc_list[task_idx] = task_acc_tensor.item() / self.config['n_gpu']
+                
+                # Synchronize acc_table
+                acc_table_tensor = torch.tensor(acc_table[task_idx], device=self.device)
+                dist.all_reduce(acc_table_tensor, op=dist.ReduceOp.SUM)
+                acc_table[task_idx] = acc_table_tensor.cpu().numpy() / self.config['n_gpu']
+
             batch_last_acc = batch_last_acc_list[task_idx]
             task_last_acc = task_last_acc_list[task_idx]
 
