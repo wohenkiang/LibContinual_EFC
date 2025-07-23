@@ -547,6 +547,10 @@ class Trainer(object):
             avg_fps, best_fps = fps['avg_fps'], fps['best_fps']
             print(f" * Average FPS (Best FPS) : {avg_fps:.0f} ({best_fps:.0f})")
 
+        # Clean up distributed training
+        if self.distribute:
+            dist.destroy_process_group()
+
     def stage2_train(self, epoch_idx, dataloader):
         """
         The stage 2 train stage of method : BIC
