@@ -70,6 +70,6 @@ classifier:
     device: cuda
     inc_cls_num: 10
     init_cls_num: 10
-    dataset: tiny-imagenet
+    dataset: cifar100
     num_class: 10
     feat_dim: 512
