@@ -219,7 +219,7 @@ class Trainer(object):
             train_loaders (list): Each task's train dataloader.
             test_loaders (list): Each task's test dataloader.
         '''
-
+        os.makedirs(config['data_root'], exist_ok=True)
         train_loaders = get_dataloader(config, "train")
         test_loaders = get_dataloader(config, "test", cls_map=train_loaders.cls_map)
         # Add DistributedSampler to each dataloader
