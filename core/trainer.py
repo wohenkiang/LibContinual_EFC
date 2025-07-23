@@ -219,10 +219,12 @@ class Trainer(object):
             train_loaders (list): Each task's train dataloader.
             test_loaders (list): Each task's test dataloader.
         '''
-        if self.rank == 0:
-            train_loaders = get_dataloader(config, "train")
-            test_loaders = get_dataloader(config, "test", cls_map=train_loaders.cls_map)
-        dist.barrier()  # 等待所有进程到这里
+
+        train_loaders = get_dataloader(config, "train")
+        test_loaders = get_dataloader(config, "test", cls_map=train_loaders.cls_map)
+        if self.distribute:
+            dist.init_process_group(backend='nccl', init_method='tcp://127.0.0.1:23456',
+                                    world_size=self.config['n_gpu'], rank=rank)
         # Add DistributedSampler to each dataloader
         if self.distribute:
             for loaders in [train_loaders, test_loaders]:
