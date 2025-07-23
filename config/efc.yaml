@@ -4,7 +4,7 @@ includes:
   - headers/model.yaml
   - headers/optimizer.yaml
 
-image_size: 32
+image_size: 64
 dataset: tiny-imagenet
 save_path: ./
 device_ids: 0
