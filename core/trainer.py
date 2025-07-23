@@ -45,9 +45,6 @@ class Trainer(object):
             self.train_loader,
             self.test_loader,
         ) = self._init_dataloader(config)
-        if self.distribute:
-            dist.init_process_group(backend='nccl', init_method='tcp://127.0.0.1:23456',
-                                    world_size=self.config['n_gpu'], rank=rank)
         self.buffer = self._init_buffer(config)
 
         self.task_idx = 0 
