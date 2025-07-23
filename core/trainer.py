@@ -690,7 +690,13 @@ class Trainer(object):
                 per_task_acc.append(round(correct_task * 100 / count_task, 2))
 
         if self.distribute:
-            pass
+            # Aggregate correct_all and count_all across all processes
+            correct_all_tensor = torch.tensor(correct_all, device=self.device)
+            count_all_tensor = torch.tensor(count_all, device=self.device)
+            dist.all_reduce(correct_all_tensor, op=dist.ReduceOp.SUM)
+            dist.all_reduce(count_all_tensor, op=dist.ReduceOp.SUM)
+            correct_all = correct_all_tensor.item()
+            count_all = count_all_tensor.item()
 
         avg_acc = round(correct_all * 100 / count_all, 2)
 
