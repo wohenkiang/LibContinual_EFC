@@ -50,7 +50,7 @@ lr_scheduler:
 backbone:
   name: resnet18
   kwargs:
-    num_classes: 100
+    num_classes: 200
     args:
       dataset: tiny-imagenet
 
