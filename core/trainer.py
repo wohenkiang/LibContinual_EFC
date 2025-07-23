@@ -33,9 +33,6 @@ class Trainer(object):
 
         self.rank = rank
         self.config = config
-        self.distribute = self.config['n_gpu'] > 1
-        if self.distribute:
-            dist.init_process_group(backend='nccl', init_method='tcp://127.0.0.1:23456', world_size=self.config['n_gpu'], rank=rank)
         self.logger = self._init_logger(config)           
         self.device = self._init_device(config)
 
