@@ -615,7 +615,7 @@ class Trainer(object):
 
         total = len(dataloader)
         init_seed(self.config['seed'] + epoch_idx, self.config['deterministic']) # Ensure Reproducibility
-        for b, batch in tqdm(enumerate(dataloader), total=total, disable=(self.rank != 0)):
+        for b, batch in tqdm(enumerate(dataloader), total=total, disable=(self.rank != 0 or True)):
 
             batch['batch_id'] = b
             # These method's LR is updated every iterations, not epochs
