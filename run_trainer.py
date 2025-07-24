@@ -18,7 +18,7 @@ def main(rank, config):
     trainer.train_loop()
 
 if __name__ == "__main__":
-
+    print("ckpt1")
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', type=str, default=None, help='Name of config file')
     args = parser.parse_args()
