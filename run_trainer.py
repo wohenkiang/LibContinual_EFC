@@ -22,7 +22,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', type=str, default=None, help='Name of config file')
     args = parser.parse_args()
-
+    print("ckpt2")
     if args.config:
         args.config = args.config + '.yaml' if not args.config.endswith('.yaml') else args.config
         config = Config(f'./config/{args.config}').get_config_dict()
