@@ -68,8 +68,8 @@ classifier:
     efc_protoupdate: 0.2
     efc_protobatchsize: 64
     device: cuda
-    inc_cls_num: 20
-    init_cls_num: 20
+    inc_cls_num: 10
+    init_cls_num: 10
     dataset: cifar100
     num_class: 200
     feat_dim: 512
