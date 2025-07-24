@@ -52,7 +52,7 @@ backbone:
   kwargs:
     num_classes: 200
     args:
-      dataset: tiny-imagenet
+      dataset: cifar100
 
 buffer:
   name: PRACEBuffer
