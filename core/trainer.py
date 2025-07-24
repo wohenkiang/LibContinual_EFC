@@ -35,6 +35,7 @@ class Trainer(object):
         self.config = config
         self.logger = self._init_logger(config)           
         self.device = self._init_device(config)
+        print("ckpt4")
 
         pprint(config)
         
