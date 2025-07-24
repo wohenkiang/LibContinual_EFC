@@ -30,7 +30,7 @@ class Trainer(object):
     """
 
     def __init__(self, rank, config):
-
+        print("ckpt4")
         self.rank = rank
         self.config = config
         self.logger = self._init_logger(config)           
