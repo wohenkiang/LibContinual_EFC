@@ -68,6 +68,7 @@ if __name__ == "__main__":
         config['device_ids'] = [config['device_ids']]
 
     if config["n_gpu"] > 1:
+        print("ckpt3")
         mp.spawn(main, nprocs=config["n_gpu"], args=(config,))
         
         os.environ["CUDA_VISIBLE_DEVICES"] = config["device_ids"]
