@@ -9,10 +9,10 @@ dataset: cifar100
 save_path: ./
 device_ids: 0
 testing_times: 1
-
-init_cls_num: 50
+seed: 0
+init_cls_num: 20
 inc_cls_num: 5
-task_num: 11
+task_num: 5
 
 epoch: 100
 n_gpu: 1
@@ -21,7 +21,7 @@ val_per_epoch: 10
 batch_size: 64
 warmup: 0
 data_root: data/cifar100
-num_workers: 0
+num_workers: 10
 
 init_optimizer:
   name: Adam
@@ -69,7 +69,7 @@ classifier:
     efc_protobatchsize: 64
     device: cuda
     inc_cls_num: 5
-    init_cls_num: 50
+    init_cls_num: 5
     dataset: cifar100
     num_class: 100
     feat_dim: 512
