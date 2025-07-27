@@ -38,7 +38,7 @@ val_per_epoch: 10
 batch_size: 64
 warmup: 0
 data_root: data/cifar100
-num_workers: 12
+num_workers: 0
 
 init_optimizer:
   name: Adam
