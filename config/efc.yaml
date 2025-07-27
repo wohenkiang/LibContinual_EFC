@@ -4,22 +4,22 @@ includes:
   - headers/model.yaml
   - headers/optimizer.yaml
 
-#train_trfms:
-#  - Pad:
-#      padding: 4
-#  - RandomResizedCrop:
-#      size: 32
-#  - RandomHorizontalFlip: {}
-#  - ToTensor: {}
-#  - Normalize:
-#      mean: [0.5071, 0.4867, 0.4408]
-#      std: [0.2675, 0.2565, 0.2761]
-#
-#test_trfms:
-#  - ToTensor: { }
-#  - Normalize:
-#      mean: [ 0.5071, 0.4867, 0.4408 ]
-#      std: [ 0.2675, 0.2565, 0.2761 ]
+train_trfms:
+  - Pad:
+      padding: 4
+  - RandomResizedCrop:
+      size: 32
+  - RandomHorizontalFlip: {}
+  - ToTensor: {}
+  - Normalize:
+      mean: [0.5071, 0.4867, 0.4408]
+      std: [0.2675, 0.2565, 0.2761]
+
+test_trfms:
+  - ToTensor: { }
+  - Normalize:
+      mean: [ 0.5071, 0.4867, 0.4408 ]
+      std: [ 0.2675, 0.2565, 0.2761 ]
 
 image_size: 32
 dataset: cifar100
