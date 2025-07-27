@@ -9,7 +9,7 @@ dataset: cifar100
 save_path: ./
 device_ids: 0
 testing_times: 1
-
+seed: 42
 init_cls_num: 40
 inc_cls_num: 3
 task_num: 21
