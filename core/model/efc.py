@@ -105,10 +105,6 @@ class EFC(Finetune):
         probabilities = torch.nn.Softmax(dim=1)(tag_output)
         return probabilities
 
-    def taw_probabilities(self, outputs, head_id):
-        probabilities = torch.nn.Softmax(dim=1)(outputs[head_id])
-        return probabilities
-
     def update_task_idt(self, dataloader):
         all_labels = []
 
@@ -267,7 +263,7 @@ class EFC(Finetune):
 
                 self.proto_generator.running_proto = deepcopy(self.proto_generator.prototype)
 
-            efm_matrix = EmpiricalFeatureMatrix(self.device)
+            efm_matrix = EFM(self.device)
             efm_matrix.compute(self.model, deepcopy(train_loader), task_idx)
             self.previous_efm = efm_matrix.get()
             R, L, V = torch.linalg.svd(self.previous_efm)
@@ -381,7 +377,7 @@ def isPSD(A, tol=1e-7):
     print("Maximum eigenvalue {}".format(np.max(E)))
     return np.all(E > -tol)
 
-class EmpiricalFeatureMatrix:
+class EFM:
 
     def __init__(self, device):
         self.empirical_feat_mat = None
@@ -521,9 +517,6 @@ class ProtoGenerator:
         )
 
     def perturbe(self, current_task, protobatchsize=64):
-
-        # list of number of classes seen before
-
         index = list(range(0, sum([len(self.task_dict[i]) for i in range(0, current_task)])))
         np.random.shuffle(index)
 
