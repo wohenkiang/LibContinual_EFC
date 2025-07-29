@@ -27,10 +27,10 @@ save_path: ./
 device_ids: 0
 testing_times: 1
 
-init_cls_num: 50
-inc_cls_num: 5
-task_num: 11
-
+init_cls_num: 10
+inc_cls_num: 10
+task_num: 10
+seed: 3047
 epoch: 100
 n_gpu: 1
 val_per_epoch: 10
@@ -85,8 +85,8 @@ classifier:
     efc_protoupdate: 0.2
     efc_protobatchsize: 64
     device: cuda
-    inc_cls_num: 5
-    init_cls_num: 50
+    inc_cls_num: 10
+    init_cls_num: 10
     dataset: cifar100
     num_class: 100
     feat_dim: 512
