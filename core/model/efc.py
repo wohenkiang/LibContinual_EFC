@@ -42,7 +42,6 @@ class EFC(Finetune):
         elif self.dataset == "tiny-imagenet":
             self.image_size = 64
 
-        # SELF-ROTATION classifier
         self.auxiliary_classifier = nn.Linear(512, self.init_cls_num* 3)
 
     def efm_loss(self, features, features_old):
@@ -223,20 +222,16 @@ class EFC(Finetune):
         self.proto_generator.update_task_dict(self.task_dict)
 
         if self.task_id == 0 :
-            # Auxiliary classifier used for self rotation
             self.auxiliary_classifier.to(self.device)
 
-            # Freeze old model
         self.old_model = deepcopy(self.model)
         self.old_model.freeze_all()
         self.old_model.to(self.device)
 
-        # Add classification head
         self.model.add_classification_head(len(self.task_dict[self.task_id]))
         self.model.to(self.device)
 
         if self.task_id > 0:
-            # initialize the buffer for PR-ACE for each new tasks
             print("Using PR-ACE")
             self.buffer = buffer
             self.buffer.get_seen_and_current_class_num(self.task_id,self.task_dict)
@@ -244,7 +239,6 @@ class EFC(Finetune):
             print("Standard training with cross entropy")
 
     def after_task(self, task_idx, buffer, train_loader, test_loaders):
-        """Runs after training all the epochs of the task (after the train session)"""
 
         with torch.no_grad():
             if task_idx > 0 and self.sigma_proto_update != -1:
@@ -332,7 +326,6 @@ class BaseModel(nn.Module):
         self.feat_dim = feat_dim
 
     def add_classification_head(self, n_out):
-
         self.heads.append(
             torch.nn.Sequential(nn.Linear(512, n_out, bias=False)))
 
@@ -390,10 +383,7 @@ class EFM:
     def get(self):
         return self.empirical_feat_mat
 
-    def compute(self, model, trn_loader, task_id):
-        self.compute_efm(model, trn_loader, task_id)
-
-    def compute_efm(self, model, trn_loader, task_id):
+    def compute(self, model, trn_loader):
         print("Evaluating Empirical Feature Matrix")
         # Compute empirical feature matrix for specified number of samples -- rounded to the batch size
 
@@ -420,9 +410,9 @@ class EFM:
 
                 identity = torch.eye(out.shape[1], device=self.device)
 
-                part1 = identity.unsqueeze(0).expand(gap_out.shape[0], identity.shape[0], identity.shape[1])
-                part2 = torch.exp(log_p).unsqueeze(1).expand(log_p.shape[0], out.shape[1], log_p.shape[1])
-                der_log_softmax = part1 - part2
+                I = identity.unsqueeze(0).expand(gap_out.shape[0], identity.shape[0], identity.shape[1])
+                P = torch.exp(log_p).unsqueeze(1).expand(log_p.shape[0], out.shape[1], log_p.shape[1])
+                der_log_softmax = I - P
 
                 weight_matrix = torch.cat([h[0].weight for h in model.heads], dim=0)
 
